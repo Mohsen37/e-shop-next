@@ -1,7 +1,9 @@
+import { useStateContext } from "../../lib/context";
 import { useQuery } from "urql";
+import { useEffect } from "react";
 import { GET_PRODUCT_QUERY } from "../../lib/query";
 import { useRouter } from "next/router";
-import Image from "next/image";
+// import Image from "next/image";
 import {
   ProductDetail,
   ProductSpec,
@@ -12,8 +14,14 @@ import {
 } from "../../styles/ProductDetail";
 import { BuyBtn } from "../../styles/ProductStyle";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
+import Head from "next/head";
 
 function ProductDetails() {
+  const { quantity, IncreaseQty, DecreaseQty, onAdd, setQuantity } = useStateContext();
+  useEffect(() => {
+    setQuantity(1)
+  }, [])
+
   const { query } = useRouter();
   const [result] = useQuery({
     query: GET_PRODUCT_QUERY,
@@ -22,7 +30,7 @@ function ProductDetails() {
 
   const { data, fetching, error } = result;
   if (fetching) {
-    return <h1>Loading...</h1>;
+    return <h1></h1>;
   }
   if (error) {
     return <h1>Error : {error.message}</h1>;
@@ -31,15 +39,18 @@ function ProductDetails() {
 
   return (
     <Container>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <ProductDetail>
         <h1>{title}</h1>
         <ProductSpec>
-          <Image
+          <img
             src={image.data.attributes.url}
             alt="Phone image"
-            width={300}
-            height={300}
-            layout={"responsive"}
+            // width={600}
+            // height={600}
+            // layout={"responsive"}
           />
           <ProductInfo>
             <div>
@@ -50,17 +61,24 @@ function ProductDetails() {
             </div>
             <ProductQuantity>
               <div className="numbers">
-                <NumBtn>
+                <NumBtn onClick={IncreaseQty}>
                   <AiFillPlusCircle />
                 </NumBtn>
-                <span>0</span>
-                <NumBtn>
+                <span>{quantity}</span>
+                <NumBtn onClick={DecreaseQty}>
                   <AiFillMinusCircle />
                 </NumBtn>
               </div>
             </ProductQuantity>
             <div>
-              <BuyBtn full>Add to Cart</BuyBtn>
+              <BuyBtn
+                full
+                onClick={() =>
+                  onAdd(data.products.data[0].attributes, quantity)
+                }
+              >
+                Add to Cart
+              </BuyBtn>
             </div>
           </ProductInfo>
         </ProductSpec>

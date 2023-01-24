@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  compiler: {
+    styledComponents: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -9,6 +12,14 @@ const nextConfig = {
       },
     ],
   },
+  async redirects(){
+    return[
+      {source:'/canceled',
+      destination:'/',
+      permanent:true
+    }
+    ]
+  }
 };
 
 module.exports = nextConfig;

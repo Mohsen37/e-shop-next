@@ -13,7 +13,11 @@ function Product({ product }) {
       </Link>
       <h4>{title}</h4>
       <p>{price} Toman</p>
-      <BuyBtn full>Buy</BuyBtn>
+      <BuyBtn full>
+        <Link href={`/product/${slug}`}>
+          <div>Buy</div>
+        </Link>
+      </BuyBtn>
     </ProductStyle>
   );
 }

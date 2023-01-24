@@ -27,10 +27,8 @@ a {
   }
 }
 
-.header-site{
-  margin: 1rem 2rem;
-}
-
 .main--page{
-  margin: 1rem 12rem;
+  max-width: 1500px;
+  margin: auto;
+  
 }

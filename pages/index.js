@@ -3,13 +3,14 @@ import { useQuery } from "urql";
 import { PRODUCTS_QUERY } from "../lib/query";
 import Product from "../components/Product";
 import { Gallery } from "../styles/Gallery";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   const [result] = useQuery({ query: PRODUCTS_QUERY });
   const { fetching, data, error } = result;
 
   if (fetching) {
-    return <h1>Loading...</h1>;
+    return <h1></h1>;
   }
   if (error) {
     return <h1>Error : {error.message}</h1>;
@@ -24,7 +25,6 @@ export default function Home() {
       </Head>
 
       <main className="main--page">
-        <h1 className="header-site">SIGMNOR</h1>
         <Gallery>
           {products.map((item) => {
             return <Product key={item.id} product={item} />;

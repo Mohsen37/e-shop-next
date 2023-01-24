@@ -17,9 +17,10 @@ export const ProductDetail = styled.div`
     margin-left: 1rem;
     border-style: solid;
     border-width: 0 0 2px 0;
-    border-image: linear-gradient(to right, #ff7f50, #5352ed) 1;
+    border-image: linear-gradient(to right, #a4b0be, #dfe4ea) 1;
   }
   img {
+    /* max-width: 50%; */
     margin-right: 2rem;
   }
 `;
@@ -28,7 +29,7 @@ export const ProductSpec = styled.div`
   display: flex;
   align-items: flex-start;
   img {
-    max-width: 100%;
+    max-width: 500px;
   }
 `;
 
